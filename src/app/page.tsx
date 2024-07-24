@@ -1,6 +1,7 @@
 import Image from "next/image";
 import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {ScoreTableRow} from "@/components/scoreTableRow";
+import {SNAKE_LEADERBOARD_API_URL} from "@/lib/constants";
 
 type ScoreDto = {
     id: number;
@@ -13,7 +14,7 @@ type ScoreDto = {
 }
 
 async function getScores(){
-    const response = await fetch('https://snake-leaderboard.mkluszczynski.dev/scores?take=10&skip=0');
+    const response = await fetch(`${SNAKE_LEADERBOARD_API_URL}/scores?take=10&skip=0`);
 
     if(!response.ok) return [{id: 1, user: {id: 1, username: 'error',}, value: 0, date: 'error'}]
 
@@ -47,7 +48,6 @@ export default async function Home() {
                         date={score.date}
                     />
                 ))}
-
             </TableBody>
         </Table>
     </main>
